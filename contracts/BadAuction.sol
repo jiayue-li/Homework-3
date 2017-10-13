@@ -17,15 +17,37 @@ contract BadAuction is AuctionInterface {
 			return false;
 		}
 
-		if (highestBidder != 0){
-			if (!highestBidder.send(highestBid)){
-				return false;
-			}
-		}
-
+		if (highestBidder != 0) {
+					if (!highestBidder.send(highestBid)){
+						msg.sender.send(msg.value);
+						return false;
+					}
+				}
 		highestBidder = msg.sender;
 		highestBid = msg.value;
 		return true;
+		// if (highestBidder != 0){
+		// 	if (!highestBidder.send(highestBid)){
+		// 		return false;
+		// 	}else{
+		// 		highestBidder = msg.sender;
+		// 		highestBid = msg.value;
+		// 		return true;
+		// 	}
+		// }
+			//
+			// highestBidder = msg.sender;
+			// highestBid = msg.value;
+			// return true;
+
+		// if ((highestBidder != 0) && (!highestBidder.send(highestBid))){
+		// 		return false;
+		// }else{
+		// 	highestBidder = msg.sender;
+		// 	highestBid = msg.value;
+		// 	return true;
+		// }
+
 	}
 
 	/* Give people their funds back */
