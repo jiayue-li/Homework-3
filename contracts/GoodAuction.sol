@@ -19,8 +19,6 @@ contract GoodAuction is AuctionInterface {
 			refunds[msg.sender] = msg.value;
 			return false;
 		}else {
-			//TODO: handle first case, being able to displace previous highest bidder
-			//if the previous highest bidder were not poisoned
 			if (highestBidder != 0){
 				refunds[highestBidder] += highestBid;
 			}
