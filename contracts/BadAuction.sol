@@ -12,10 +12,25 @@ contract BadAuction is AuctionInterface {
 	 */
 	function bid() payable external returns (bool) {
 		// YOUR CODE HERE
+		if (msg.value <= getHighestBid()){
+			msg.sender.send(msg.value);
+			return false;
+		}
+
+		if (highestBidder != 0){
+			if (!highestBidder.send(highestBid)){
+				return false;
+			}
+		}
+
+		highestBidder = msg.sender;
+		highestBid = msg.value;
+		return true;
 	}
 
 	/* Give people their funds back */
 	function () payable {
 		// YOUR CODE HERE
+		revert();
 	}
 }
